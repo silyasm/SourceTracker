@@ -1,41 +1,85 @@
 #
 # define display information
 #
-name: Filter Contigs
+name: SourceTracker
+
 tooltip: |
-    Filters the contigs by removing contigs below a length threshold
+    Filters sink OTU's into predicted source environments or contamination.
 screenshots: []
 
-icon: null
+icon: analysis.png
 
 #
-# define a set of similar methods that might be useful to the user
+# define a set of similar apps that might be useful to the user
 #
 suggestions:
     apps:
         related:
-            []
+            [app1, app2]
         next:
-            []
-    methods:
-        related:
-            []
-        next:
-            [annotate_contigset]
+            [app3, app4]
 
 #
 # Configure the display and description of parameters
 #
 parameters :
-    assembly_input_ref :
+    amplicon_matrix_ref :
         ui-name : |
-            Assembly
+            AmpliconMatrix
         short-hint : |
-            The assembly to filter (will be overwritten)
-    min_length :
-        ui-name : |
-            Min Length Threshold
-        short-hint : |
-            All contigs below this length will be removed
+            AmpliconMatrix with raw count data
+        long-hint  : |
+            AmpliconMatrix with raw count data
+    associated_matrix_obj_ref:
+        ui-name: |
+            Associated Matrix Object
+        short-hint: |
+            Associated Matrix object used to order result barplot
+        long-hint: |
+            Associated Matrix object used to order result barplot
+    threshold:
+        ui-name: |
+            Cutoff
+        short-hint: |
+            The relative abundance threshold below which taxa will be pooled into the `Other` category.
+        long-hint: |
+            The relative abundance threshold below which taxa will be pooled into the `Other` category.
+    tax_field:
+        ui-name: |
+            Taxonomy field
+        short-hint: |
+            Taxonomy field
+    meta_group:
+        ui-name: |
+            Column attribute or sample metadata<br>to group samples by
+        short-hint: |
+            Bars will be plotted grouped by sample data in specified column.
+        long-hint: |
+            Bars will be plotted grouped by sample data in specified column.
+    associated_matrix_row:
+        ui-name: |
+            Associated Matrix Row
+        short-hint: |
+            Select a row from associated matrix for plot order
+        long-hint: |
+            Select a row from associated matrix for plot order
+    ascending:
+        ui-name: |
+            Sort Ascending
+        short-hint: |
+            Sort ascending vs. descending
+        long-hint: |
+            Sort ascending vs. descending
 description : |
-    <p>This is a simple method designed to illustrate the KBase SDK.</p>
+    <h3>Description: </h3>
+    <p>Source Tracker, first introduced by Dan Knights in a 2011 paper (Knights et al. 2011), evaluates the relative bacterial contributions of source environments to microbial sink communities from 16S rRNA bacterial genomic sequence data. Unlike Naïve Bayes and Random Forrest, Source Tracker uses an algorithm called Latent Dirichlet Allocation, to assign sink OTU or ASV sequences to given source environments but remains accurate when contaminants of an unknown source are introduced. In short, the software uses Gibbs sampling to randomly assign sources to each sequence before reassigning sources based on the frequency data for each OTU or ASV. To learn more about the theory behind Source Tarcker, visit this Jupyter notebook. Source Tracker has been utilized and evaluated in numerous publications (Henry et al. 2016; Newton et al. 2013; Staley et al. 2018) many of which have assessed contamination in water treatment. In these studies, researchers were able to identify and compare the proportion of microbial contamination in water treatment locations along with the proportion of bacteria from known sources.</p>
+
+    <p>Inputs: Amplicon Matrix (.biom), Metadata Table</p>
+
+    <p>Number of Burn-in Runs: input the number of desired burn-in runs before the Gibbs sampling begins.</p>
+
+    <p>Outputs: Source per Sink Table and Single Sink Table</p>
+
+    <p>Source per Sink Table: a table displaying the proportional contributions of source samples in sinks, can be presented with or without the standard deviation of each contribution. (.txt)</p>
+
+    <p>Single Sink Table: displays the source of each individual OTU or ASV within a given sink. (.txt) </p>

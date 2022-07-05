@@ -1,6 +1,5 @@
 /*
 A KBase module: SourceTracker
-This sample module contains one small method that filters contigs.
 */
 
 module SourceTracker {
@@ -9,9 +8,24 @@ module SourceTracker {
         string report_ref;
     } ReportResults;
 
+    typedef structure {
+        string workspace_name;
+        int workspace_id;
+        string amplicon_matrix_ref;
+        string attri_mapping_ref;
+        string associated_matrix_obj_ref;
+        float threshold;
+        int taxonomy_level;
+        mapping<string, string> grouping_label;
+        string meta_group;
+        string tax_field;
+        string associated_matrix_row;
+        int ascending;
+    } SourceTrackerInput;
+
     /*
         This example function accepts any number of parameters and returns results in a KBaseReport
     */
-    funcdef run_SourceTracker(mapping<string,UnspecifiedObject> params) returns (ReportResults output) authentication required;
+    funcdef run_SourceTracker(SourceTrackerInput params) returns (ReportResults output) authentication required;
 
 };
