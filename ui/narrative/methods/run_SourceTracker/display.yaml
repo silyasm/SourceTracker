@@ -30,13 +30,13 @@ parameters :
             AmpliconMatrix with raw count data
         long-hint  : |
             AmpliconMatrix with raw count data
-    associated_matrix_obj_ref:
+    metadata_table:
         ui-name: |
-            Associated Matrix Object
+            Associated Metadata Table
         short-hint: |
-            Associated Matrix object used to order result barplot
+            Associated Metadata table used to organize matrix
         long-hint: |
-            Associated Matrix object used to order result barplot
+            Associated Metadata table used to organize matrix
     threshold:
         ui-name: |
             Cutoff
@@ -46,9 +46,9 @@ parameters :
             The relative abundance threshold below which taxa will be pooled into the `Other` category.
     meta_field:
         ui-name: |
-            Metadata Table
+            Sink/Sample Identification
         short-hint: |
-            Metadata table
+            Select which row in the meatdata table holds the sink or source identification
     sink_or_sample:
         ui-name: |
             Column indicating sink or sample

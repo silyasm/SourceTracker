@@ -13,7 +13,7 @@ module SourceTracker {
         int workspace_id;
         string amplicon_matrix_ref;
         string attri_mapping_ref;
-        string associated_matrix_obj_ref;
+        string metadata_table;
         float threshold;
         int taxonomy_level;
         mapping<string, string> grouping_label;

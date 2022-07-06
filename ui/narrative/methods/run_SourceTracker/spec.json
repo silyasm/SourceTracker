@@ -21,9 +21,9 @@
       }
     },
     {
-      "id" : "associated_matrix_obj_ref",
-      "optional" : true,
-      "advanced" : true,
+      "id" : "metadata_table",
+      "optional" : false,
+      "advanced" : false,
       "allow_multiple" : false,
       "default_values" : [ "" ],
       "field_type" : "text",
@@ -40,7 +40,7 @@
       "field_type": "textsubdata",
       "textsubdata_options": {
         "subdata_selection": {
-           "parameter_id": "amplicon_matrix_ref",
+           "parameter_id": "metadata_table",
            "path_to_subdata": [
                "row_attributemapping_ref",
                "<WSREF>",
@@ -117,7 +117,7 @@
       "field_type" : "textsubdata",
       "textsubdata_options" : {
         "subdata_selection": {
-          "parameter_id" : "associated_matrix_obj_ref",
+          "parameter_id" : "metadata_table",
           "subdata_included" : ["data/row_ids"],
           "path_to_subdata": ["data", "row_ids"],
           "selection_id": "id"
@@ -160,8 +160,8 @@
           "target_type_transform": "resolved-ref"
         },
         {
-          "input_parameter" : "associated_matrix_obj_ref",
-          "target_property" : "associated_matrix_obj_ref",
+          "input_parameter" : "metadata_table",
+          "target_property" : "metadata_table",
           "target_type_transform": "resolved-ref"
         },
         {
