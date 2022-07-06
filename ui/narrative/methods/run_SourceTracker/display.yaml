@@ -30,13 +30,6 @@ parameters :
             AmpliconMatrix with raw count data
         long-hint  : |
             AmpliconMatrix with raw count data
-    metadata_table:
-        ui-name: |
-            Associated Metadata Table
-        short-hint: |
-            Associated Metadata table used to organize matrix
-        long-hint: |
-            Associated Metadata table used to organize matrix
     threshold:
         ui-name: |
             Cutoff
@@ -44,7 +37,7 @@ parameters :
             The relative abundance threshold below which taxa will be pooled into the `Other` category.
         long-hint: |
             The relative abundance threshold below which taxa will be pooled into the `Other` category.
-    meta_field:
+    sample_type:
         ui-name: |
             Sink/Sample Identification
         short-hint: |

@@ -21,18 +21,7 @@
       }
     },
     {
-      "id" : "metadata_table",
-      "optional" : false,
-      "advanced" : false,
-      "allow_multiple" : false,
-      "default_values" : [ "" ],
-      "field_type" : "text",
-      "text_options" : {
-        "valid_ws_types" : ["KBaseExperiments.AttributeMapping"]
-      }
-    },
-    {
-      "id": "meta_field",
+      "id": "sample_type",
       "optional": false,
       "advanced": false,
       "allow_multiple": false,
@@ -40,16 +29,16 @@
       "field_type": "textsubdata",
       "textsubdata_options": {
         "subdata_selection": {
-           "parameter_id": "metadata_table",
+           "parameter_id": "amplicon_matrix_ref",
            "path_to_subdata": [
-               "row_attributemapping_ref",
+               "col_attributemapping_ref",
                "<WSREF>",
                "attributes"
            ],
            "subdata_included": [
                "attributes/[*]/attribute",
                "attributes/[*]/source",
-               "row_attributemapping_ref"
+               "col_attributemapping_ref"
            ],
            "selection_id": "attribute",
            "selection_description": [
@@ -160,11 +149,6 @@
           "target_type_transform": "resolved-ref"
         },
         {
-          "input_parameter" : "metadata_table",
-          "target_property" : "metadata_table",
-          "target_type_transform": "resolved-ref"
-        },
-        {
           "input_parameter" : "threshold",
           "target_property" : "threshold"
         },
@@ -173,8 +157,8 @@
           "target_property": "sink_or_sample"
         },
         {
-          "input_parameter": "meta_field",
-          "target_property": "meta_field"
+          "input_parameter": "sample_type",
+          "target_property": "sample_type"
         },
         {
           "input_parameter" : "associated_matrix_row",

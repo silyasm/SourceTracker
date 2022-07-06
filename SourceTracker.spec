@@ -13,12 +13,11 @@ module SourceTracker {
         int workspace_id;
         string amplicon_matrix_ref;
         string attri_mapping_ref;
-        string metadata_table;
         float threshold;
         int taxonomy_level;
         mapping<string, string> grouping_label;
         string sink_or_sample;
-        string meta_field;
+        string sample_type;
         string associated_matrix_row;
         int ascending;
     } SourceTrackerInput;
