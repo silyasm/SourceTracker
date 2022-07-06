@@ -244,7 +244,7 @@ class SourceTrackerTest(unittest.TestCase):
                 'amplicon_matrix_ref': self.amplicon_matrix_ref,
                 'tax_field': 'taxonomy',
                 'threshold': 0.005,
-                'meta_group': 'BODY_SITE',
+                'sink_or_sample': 'BODY_SITE',
             })[0]
 
         self.assertTrue('report_ref' in ret)
@@ -257,7 +257,7 @@ class SourceTrackerTest(unittest.TestCase):
                 'amplicon_matrix_ref': self.amplicon_matrix_ref,
                 'tax_field': 'taxonomy',
                 'threshold': 0.005,
-                'meta_group': 'BODY_SITE',
+                'sink_or_sample': 'BODY_SITE',
                 'associated_matrix_obj_ref': self.asso_matrix_ref,
                 'associated_matrix_row': 'GG_OTU_2',
                 'ascending': 0

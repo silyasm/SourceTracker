@@ -32,7 +32,7 @@
       }
     },
     {
-      "id": "tax_field",
+      "id": "meta_field",
       "optional": false,
       "advanced": false,
       "allow_multiple": false,
@@ -77,7 +77,7 @@
       }
     },
     {
-      "id": "meta_group",
+      "id": "sink_or_sample",
       "optional": true,
       "advanced": true,
       "allow_multiple": false,
@@ -169,12 +169,12 @@
           "target_property" : "threshold"
         },
         {
-          "input_parameter": "meta_group",
-          "target_property": "meta_group"
+          "input_parameter": "sink_or_sample",
+          "target_property": "sink_or_sample"
         },
         {
-          "input_parameter": "tax_field",
-          "target_property": "tax_field"
+          "input_parameter": "meta_field",
+          "target_property": "meta_field"
         },
         {
           "input_parameter" : "associated_matrix_row",

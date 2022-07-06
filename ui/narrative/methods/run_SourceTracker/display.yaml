@@ -44,25 +44,25 @@ parameters :
             The relative abundance threshold below which taxa will be pooled into the `Other` category.
         long-hint: |
             The relative abundance threshold below which taxa will be pooled into the `Other` category.
-    tax_field:
+    meta_field:
         ui-name: |
-            Taxonomy field
+            Metadata Table
         short-hint: |
-            Taxonomy field
-    meta_group:
+            Metadata table
+    sink_or_sample:
         ui-name: |
-            Column attribute or sample metadata<br>to group samples by
+            Column indicating sink or sample
         short-hint: |
-            Bars will be plotted grouped by sample data in specified column.
+            Columns in matrix will be seperated based on sink or sample.
         long-hint: |
-            Bars will be plotted grouped by sample data in specified column.
+            Columns in matrix will be seperated based on sink or sample.
     associated_matrix_row:
         ui-name: |
             Associated Matrix Row
         short-hint: |
-            Select a row from associated matrix for plot order
+            Select a row from associated matrix for sink or sample
         long-hint: |
-            Select a row from associated matrix for plot order
+            Select a row from associated matrix for sink or sample
     ascending:
         ui-name: |
             Sort Ascending

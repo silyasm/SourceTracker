@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+ -*- coding: utf-8 -*-
 #BEGIN_HEADER
 import logging
 import os
@@ -14,7 +14,6 @@ class SourceTracker:
     '''
     Module Name:
     SourceTracker
-
     Module Description:
     A KBase module: SourceTracker
     '''
@@ -25,9 +24,9 @@ class SourceTracker:
     # state. A method could easily clobber the state set by another while
     # the latter method is running.
     ######################################### noqa
-    VERSION = "0.0.2"
-    GIT_URL = "https://github.com/silyasm/SourceTracker"
-    GIT_COMMIT_HASH = "f23cc5a8aff6551fcbbbe58367608119a6dd6f3c"
+    VERSION = "0.0.1"
+    GIT_URL = "git@github.com/silyasm/SourceTracker"
+    GIT_COMMIT_HASH = ""
 
     #BEGIN_CLASS_HEADER
     #END_CLASS_HEADER
@@ -49,16 +48,15 @@ class SourceTracker:
     def run_SourceTracker(self, ctx, params):
         """
         This example function accepts any number of parameters and returns results in a KBaseReport
-        :param params: instance of type "SourceTrackerInput" -> structure:
-           parameter "workspace_name" of String, parameter "workspace_id" of
-           Long, parameter "amplicon_matrix_ref" of String, parameter
-           "attri_mapping_ref" of String, parameter
+        :param params: instance of type "SourceTrackerInput" ->
+           structure: parameter "workspace_name" of String, parameter
+           "workspace_id" of Long, parameter "amplicon_matrix_ref" of String,
+           parameter "attri_mapping_ref" of String, parameter
            "associated_matrix_obj_ref" of String, parameter "threshold" of
            Double, parameter "taxonomy_level" of Long, parameter
            "grouping_label" of mapping from String to String, parameter
-           "sink_or_sample" of String, parameter "meta_field" of String,
-           parameter "associated_matrix_row" of String, parameter "ascending"
-           of Long
+           "sink_or_sample" of String, parameter "meta_field" of String, parameter
+           "associated_matrix_row" of String, parameter "ascending" of Long
         :returns: instance of type "ReportResults" -> structure: parameter
            "report_name" of String, parameter "report_ref" of String
         """
