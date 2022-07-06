@@ -27,7 +27,7 @@ class SourceTracker:
     ######################################### noqa
     VERSION = "0.0.2"
     GIT_URL = "https://github.com/silyasm/SourceTracker"
-    GIT_COMMIT_HASH = "91de93bbe30cab0f1da08c3eac80b1e9aa9827b7"
+    GIT_COMMIT_HASH = "0d5aefc56a1f31b12652f87ebb12731ccab6ba96"
 
     #BEGIN_CLASS_HEADER
     #END_CLASS_HEADER
@@ -54,9 +54,9 @@ class SourceTracker:
            Long, parameter "amplicon_matrix_ref" of String, parameter
            "attri_mapping_ref" of String, parameter "threshold" of Double,
            parameter "taxonomy_level" of Long, parameter "grouping_label" of
-           mapping from String to String, parameter "sink_label" of String,
-           parameter "sample_type" of String, parameter "source_label" of
-           String, parameter "ascending" of Long
+           mapping from String to String, parameter "sink_label" of
+           String, parameter "sample_type" of String, parameter
+           "source_label" of String, parameter "ascending" of Long
         :returns: instance of type "ReportResults" -> structure: parameter
            "report_name" of String, parameter "report_ref" of String
         """

@@ -53,6 +53,24 @@
       }
     },
     {
+        "id": "sink_label",
+        "optional" : false,
+        "advanced" : false,
+        "allow_multiple" : false,
+        "default_values" : [ "" ],
+        "field_type" : "text",
+        "text_options" : {}
+    },
+    {
+        "id": "source_label",
+        "optional" : false,
+        "advanced" : false,
+        "allow_multiple" : false,
+        "default_values" : [ "" ],
+        "field_type" : "text",
+        "text_options" : {}
+    },
+    {
       "id": "threshold",
       "optional": false,
       "advanced": true,
@@ -63,57 +81,6 @@
         "validate_as": "float",
         "min_float" : 0.0,
         "max_float" : 1.0
-      }
-    },
-    {
-      "id": "sink_or_sample",
-      "optional": true,
-      "advanced": true,
-      "allow_multiple": false,
-      "default_values": [ "" ],
-      "field_type": "textsubdata",
-      "textsubdata_options": {
-        "subdata_selection": {
-           "parameter_id": "amplicon_matrix_ref",
-           "path_to_subdata": [
-               "col_attributemapping_ref",
-               "<WSREF>",
-               "attributes"
-           ],
-           "subdata_included": [
-               "attributes/[*]/attribute",
-               "attributes/[*]/source",
-               "col_attributemapping_ref"
-           ],
-           "selection_id": "attribute",
-           "selection_description": [
-               "attribute",
-               "source"
-           ],
-           "description_template": "source: {{source}}"
-        },
-        "multiselection": false,
-        "show_src_obj": true,
-        "allow_custom": false
-      }
-    },
-    {
-      "id" : "associated_matrix_row",
-      "optional" : true,
-      "advanced" : true,
-      "allow_multiple" : false,
-      "default_values" : [ "" ],
-      "field_type" : "textsubdata",
-      "textsubdata_options" : {
-        "subdata_selection": {
-          "parameter_id" : "metadata_table",
-          "subdata_included" : ["data/row_ids"],
-          "path_to_subdata": ["data", "row_ids"],
-          "selection_id": "id"
-          },
-        "multiselection":false,
-        "show_src_obj":false,
-        "allow_custom":false
       }
     },
     {
@@ -153,16 +120,16 @@
           "target_property" : "threshold"
         },
         {
-          "input_parameter": "sink_or_sample",
-          "target_property": "sink_or_sample"
+          "input_parameter": "sink_label",
+          "target_property": "sink_label"
         },
         {
           "input_parameter": "sample_type",
           "target_property": "sample_type"
         },
         {
-          "input_parameter" : "associated_matrix_row",
-          "target_property" : "associated_matrix_row"
+          "input_parameter" : "source_label",
+          "target_property" : "source_label"
         },
         {
           "input_parameter" : "ascending",

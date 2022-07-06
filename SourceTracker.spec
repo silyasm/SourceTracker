@@ -16,9 +16,9 @@ module SourceTracker {
         float threshold;
         int taxonomy_level;
         mapping<string, string> grouping_label;
-        string sink_or_sample;
+        string sink_label;
         string sample_type;
-        string associated_matrix_row;
+        string source_label;
         int ascending;
     } SourceTrackerInput;
 

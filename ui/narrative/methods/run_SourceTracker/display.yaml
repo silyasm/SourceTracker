@@ -42,20 +42,20 @@ parameters :
             Sink/Sample Identification
         short-hint: |
             Select which row in the meatdata table holds the sink or source identification
-    sink_or_sample:
+    sink_label:
         ui-name: |
-            Column indicating sink or sample
+            Sink Label
         short-hint: |
-            Columns in matrix will be seperated based on sink or sample.
+            Label used to identify which samples are sink samples.
         long-hint: |
-            Columns in matrix will be seperated based on sink or sample.
-    associated_matrix_row:
+            Label used to identify which samples are sink samples.
+    source_label:
         ui-name: |
-            Associated Matrix Row
+            Source Label
         short-hint: |
-            Select a row from associated matrix for sink or sample
+            Label used to identify which samples are source samples.
         long-hint: |
-            Select a row from associated matrix for sink or sample
+            Label used to identify which samples are source samples.
     ascending:
         ui-name: |
             Sort Ascending
