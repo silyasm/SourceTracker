@@ -13,9 +13,8 @@ from random import randrange, sample
 from re import A
 import pandas
 import numpy as np
-import SourceTracker.utils.gibbs
-import SourceTracker.utils.sourcetrackerUtils
-import SourceTracker.utils._gibbs_defaults
+from IPython.display import display
+import csv
 
 #END_HEADER
 
@@ -37,7 +36,7 @@ class SourceTracker:
     ######################################### noqa
     VERSION = "0.0.3"
     GIT_URL = "https://github.com/silyasm/SourceTracker"
-    GIT_COMMIT_HASH = "9594f2fc458d4cd79923d8621bb69a5325810c23"
+    GIT_COMMIT_HASH = "91de93bbe30cab0f1da08c3eac80b1e9aa9827b7"
 
     #BEGIN_CLASS_HEADER
     #END_CLASS_HEADER
@@ -102,19 +101,53 @@ class SourceTracker:
             if sample. == params['sink_label']:
                 sink_otus.append('amplicon_matrix_ref'.loc['sample'])
         
-        alpha1 = .01
-        alpha2 = .001
-        beta = 10
-        restarts = 5
-        draws_per_restart = 1
-        burnin = 2
-        delay = 2
-        source_df =
-        sink_df
+        otuRowsStrings = []
+        with open('amplicon_matrix_ref', 'r') as file:
+            csvreader = csv.reader(file)
+            sources = next(csvreader)
+            for row in csvreader:
+                otuRowsStrings.append(row)
+        OTUs = []
+        abundanceData = []
+        for row in otuRowsStrings:
+            OTUs.append(row.pop(0))
+            row = [int(i) for i in row]
+            abundanceData.append(row)
+        sources.remove('')
 
-        mpm, mps, fas = gibbs(source_df, sink_df, alpha1, alpha2, beta,
-                                  restarts, draws_per_restart, burnin, delay,
-                                  create_feature_tables=True)
+        table_otu = pandas.DataFrame(data = abundanceData, columns=[sources], index=[OTUs])
+        #display(table_otu)
+
+        table_p_tv = table_otu.loc[table_otu.index].div(table_otu.sum(axis=0), axis=1)
+        #display(table_p_tv)
+
+        sink_otu_sources = []
+        for x in range(len(OTUs)):
+            sink_otu_sources.append(randrange(1, len(OTUs)))
+
+        table_otu_reference = pandas.DataFrame(data=[sink_otu_sources], columns=[OTUs], index= ['Random Sources'])
+        #display(table_otu_reference)
+
+        def roll(probs):
+            cumulativeWeights = list(accumulate(probs))
+            position = random.random()
+            for side, endPosition in enumerate(cumulativeWeights):
+                if position < endPosition:
+                    return side + 1
+
+        predictedSources = []
+        p_tv = []
+
+        for i in OTUs:
+            p_v = np.bincount(sink_otu_sources, minlength=3)[1:] / float(len(sink_otu_sources))
+            p_tv = np.array([(table_p_tv.at[i, sources[0]])])
+            comboProbability = p_tv * p_v
+            prob = comboProbability / comboProbability.sum()
+            predictedSource = roll(prob)
+            sink_otu_sources[i] = predictedSource
+            predictedSources.append(predictedSource)
+        table_prediction = pandas.DataFrame(data=[sink_otus, sink_otu_sources], index=['OTU', 'Predicted Source'])
+        output = table_prediction
 
         report_client = KBaseReport(self.callback_url, token=self.token)
         report_name = "SourceTracker_report_" + str(uuid.uuid4())
