@@ -32,9 +32,9 @@ class SourceTracker:
     # state. A method could easily clobber the state set by another while
     # the latter method is running.
     ######################################### noqa
-    VERSION = "0.0.3"
+    VERSION = "0.0.4"
     GIT_URL = "https://github.com/silyasm/SourceTracker"
-    GIT_COMMIT_HASH = "b528bea5a7268c2ad68afbc8979a28bae456a649"
+    GIT_COMMIT_HASH = "1279e615bd51f5ceecfb5e64de578b44c0c1d538"
 
     #BEGIN_CLASS_HEADER
     #END_CLASS_HEADER
