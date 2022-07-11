@@ -34,7 +34,7 @@ class SourceTracker:
     ######################################### noqa
     VERSION = "0.0.3"
     GIT_URL = "https://github.com/silyasm/SourceTracker"
-    GIT_COMMIT_HASH = "0df3352cfca8a281fe9a85cda8ecf9fd27d357e7"
+    GIT_COMMIT_HASH = "9101fe99170392478489fccce2adc6ed054e5beb"
 
     #BEGIN_CLASS_HEADER
     #END_CLASS_HEADER
@@ -146,7 +146,7 @@ class SourceTracker:
             raise ValueError('Method run_SourceTracker return value ' +
                              'output is not type dict as required.')
         # return the results
-        return [output]
+        return [returnVal]
     def status(self, ctx):
         #BEGIN_STATUS
         report_output = {'state': "OK",
