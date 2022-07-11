@@ -966,4 +966,4 @@ def collate_gibbs_results(all_envcounts, all_env_assignments,
 
         report_output = {'report_name': output['name'], 'report_ref': output['ref']}
 
-        return report_output
+        return [report_output]
