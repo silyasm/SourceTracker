@@ -1,3 +1,6 @@
+# Code imported from SourceTracker2 code, no changes added
+# GitHub link: https://github.com/biota/sourcetracker2/blob/master/sourcetracker/_util.py
+
 #!/usr/bin/env python
 # ----------------------------------------------------------------------------
 # Copyright (c) 2016--, Biota Technology.

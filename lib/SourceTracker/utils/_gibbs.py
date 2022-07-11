@@ -1,3 +1,6 @@
+# Code imported from SourceTracker2 code, import formatting changed
+# GitHub link: https://github.com/biota/sourcetracker2/blob/master/sourcetracker/_gibbs.py
+
 #!/usr/bin/env python
 # ----------------------------------------------------------------------------
 # Copyright (c) 2016--, Biota Technology.

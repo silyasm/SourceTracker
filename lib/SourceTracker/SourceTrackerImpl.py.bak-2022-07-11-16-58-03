@@ -34,7 +34,7 @@ class SourceTracker:
     ######################################### noqa
     VERSION = "0.0.3"
     GIT_URL = "https://github.com/silyasm/SourceTracker"
-    GIT_COMMIT_HASH = "9101fe99170392478489fccce2adc6ed054e5beb"
+    GIT_COMMIT_HASH = "a26f8d172c6c9de998d150fced2cc95b69679795"
 
     #BEGIN_CLASS_HEADER
     #END_CLASS_HEADER
@@ -96,34 +96,18 @@ class SourceTracker:
                                   source_label=source_label,
                                   ascending=ascending)
                                   
-        #for sample in sample_type:
-        # should separate out sink and source samples into seperate dfs
-            #if sample.[****] == params['sink_label']:
-            # Want to check if sample type field is the same as sink. **** should be the index for just sample type field
-                #sink_otus.append(amplicon_matrix_ref.loc[sample.[----]])
+        for sample in params['sample_type']:
+        #should seprtate out sink and source samples into seperate dfs
+            if sample.[****] == params['sink_label']:
+            #Want to check if sample type field is the same as sink. **** should be the index for just sample type field
+                sink_otus.append('amplicon_matrix_ref'.loc[sample.[----]])
                 # Place corresponding column in amplicon matrix in the sink array. ---- should be the field with the sample ID
-            #if sample.[****] == params['source_label']:
-            # Want to check if sample type field is the same as source. **** should be the index for just sample type field
-                #source_otus.append(amplicon_matrix_ref.loc[sample.[----]])
+            if sample.[****] == params['source_label']:
+            #Want to check if sample type field is the same as source. **** should be the index for just sample type field
+                source_otus.append('amplicon_matrix_ref'.loc[sample.[----]])
                 # Place corresponding column in amplicon matrix in the source array. ---- should be the field with the sample ID
-            #else:
-                #raise ValueError('Label' + sample + 'was not recognised as sink nor sample')
-        
-        # example source otus
-        otus = np.array(['o%s' % i for i in range(50)])
-        source1 = np.random.randint(0, 1000, size=50)
-        source2 = np.random.randint(0, 1000, size=50)
-        source3 = np.random.randint(0, 1000, size=50)
-        source_df = pd.DataFrame([source1, source2, source3], index=['source1', 'source2', 'source3'], columns=otus, dtype=np.int32)
-        
-        # example sink otus
-        sink1 = np.ceil(.5*source1+.5*source2)
-        sink2 = np.ceil(.5*source2+.5*source3)
-        sink3 = np.ceil(.5*source1+.5*source3)
-        sink4 = source1
-        sink5 = source2
-        sink6 = np.random.randint(0, 1000, size=50)
-        sink_df = pd.DataFrame([sink1, sink2, sink3, sink4, sink5, sink6], index=np.array(['sink%s' % i for i in range(1,7)]), columns=otus, dtype=np.int32)
+            else:
+                raise ValueError('Label' + sample + 'was not recognised as sink nor sample')
         
         alpha1 = .01
         alpha2 = .001
@@ -132,8 +116,8 @@ class SourceTracker:
         draws_per_restart = 1
         burnin = 2
         delay = 2
-        #source_df = pd.Dataframe([source_otus])
-        #sink_df = pd.Dataframe([sink_otus])
+        source_df = pd.Dataframe([source_otus])
+        sink_df = pd.Dataframe([sink_otus])
 
         mpm, mps, fas = gibbs(source_df, sink_df, alpha1, alpha2, beta,
                                   restarts, draws_per_restart, burnin, delay,
@@ -146,7 +130,7 @@ class SourceTracker:
             raise ValueError('Method run_SourceTracker return value ' +
                              'output is not type dict as required.')
         # return the results
-        return [output]
+        return [report_output]
     def status(self, ctx):
         #BEGIN_STATUS
         report_output = {'state': "OK",
@@ -155,4 +139,4 @@ class SourceTracker:
                      'git_url': self.GIT_URL,
                      'git_commit_hash': self.GIT_COMMIT_HASH}
         #END_STATUS
-        return [returnVal]
+        return [report_output]

@@ -1,3 +1,7 @@
+# Large portions of code imported from SourceTracker2 code
+# GitHub link: https://github.com/biota/sourcetracker2/blob/master/sourcetracker/_sourcetracker.py
+
+
 #!/usr/bin/env python
 # ----------------------------------------------------------------------------
 # Copyright (c) 2016--, Biota Technology.
@@ -16,7 +20,7 @@ from functools import partial
 from multiprocessing import Pool
 from skbio.stats import subsample_counts
 
-#Sample_Metadata has to on point, feature table is amplicon matrix
+# Feature table is amplicon matrix
 
 def intersect_and_sort_samples(sample_metadata, feature_table):
     '''Return input tables retaining only shared samples, row order equivalent.
@@ -931,17 +935,35 @@ def collate_gibbs_results(all_envcounts, all_env_assignments,
 
     return props, props_stds, fts
     
-    def create_proportion_tables (mpm, mps, fas) :
-        
-    
     def generate_report (self, mpm, mps, fas) :
-        log 'creating report'
+        """
+        _generate_report: generate summary report
+        """
+
+        log('creating report')
+
+        output_files = self._generate_output_file_list(mpm, mps, fas)
+
+        output_html_files = self._generate_html_report(mpm, mps, fas,
+                                                       params)
+
+        description_set = 'Proportion Tables created by Source Tracker'
+        description_object = 'Proportion Tables created by Source Tracker'
+        objects_created = []
+        objects_created.append({'ref': mpm, mps, fas)
+
         report_params = {'message': '',
-        'workspace_name': params.get('workspace_name'),
-        'objects_created': objects_created,
-        'file_links': output_files,
-        'html_links': output_html_files,
-        'direct_html_link_index': 0,
-        'html_window_height': 333,
-        'report_object_name': 'kb_deseq2_report_' + str(uuid.uuid4())}
-        
+                         'workspace_name': params.get('workspace_name'),
+                         'objects_created': objects_created,
+                         'file_links': output_files,
+                         'html_links': output_html_files,
+                         'direct_html_link_index': 0,
+                         'html_window_height': 333,
+                         'report_object_name': 'Source_Tracker_report_' + str(uuid.uuid4())}
+
+        kbase_report_client = KBaseReport(self.callback_url)
+        output = kbase_report_client.create_extended_report(report_params)
+
+        report_output = {'report_name': output['name'], 'report_ref': output['ref']}
+
+        return report_output

@@ -1,3 +1,6 @@
+# Code imported from SourceTracker2 code, no changes added
+# GitHub link: https://github.com/biota/sourcetracker2/blob/master/sourcetracker/_gibbs_defaults.py
+
 # Configuration file where you can set the parameter default values and
 # descriptions.
 DEFAULT_ALPH1 = .001
