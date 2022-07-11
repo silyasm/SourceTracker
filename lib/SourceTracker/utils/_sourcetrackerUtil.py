@@ -930,3 +930,18 @@ def collate_gibbs_results(all_envcounts, all_env_assignments,
             fts = None
 
     return props, props_stds, fts
+    
+    def create_proportion_tables (mpm, mps, fas) :
+        
+    
+    def generate_report (self, mpm, mps, fas) :
+        log 'creating report'
+        report_params = {'message': '',
+        'workspace_name': params.get('workspace_name'),
+        'objects_created': objects_created,
+        'file_links': output_files,
+        'html_links': output_html_files,
+        'direct_html_link_index': 0,
+        'html_window_height': 333,
+        'report_object_name': 'kb_deseq2_report_' + str(uuid.uuid4())}
+        

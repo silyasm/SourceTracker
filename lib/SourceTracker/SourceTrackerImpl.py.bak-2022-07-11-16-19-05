@@ -34,7 +34,7 @@ class SourceTracker:
     ######################################### noqa
     VERSION = "0.0.3"
     GIT_URL = "https://github.com/silyasm/SourceTracker"
-    GIT_COMMIT_HASH = "a26f8d172c6c9de998d150fced2cc95b69679795"
+    GIT_COMMIT_HASH = "9594f2fc458d4cd79923d8621bb69a5325810c23"
 
     #BEGIN_CLASS_HEADER
     #END_CLASS_HEADER
