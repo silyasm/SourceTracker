@@ -935,14 +935,19 @@ def collate_gibbs_results(all_envcounts, all_env_assignments,
 
     return props, props_stds, fts
     
+    def _generate_html_report (self, mpm, mps, fas) :
+    # generate html_report
+        log('start generating html report')
+        html_report = list()
+        
+        
+    
     def generate_report (self, mpm, mps, fas) :
         """
         _generate_report: generate summary report
         """
 
         log('creating report')
-
-        output_files = self._generate_output_file_list(mpm, mps, fas)
 
         output_html_files = self._generate_html_report(mpm, mps, fas,
                                                        params)
