@@ -123,16 +123,16 @@ class SourceTracker:
 
         mpm, mps, fas = _sourcetrackerUtil.gibbs(source_df, sink_df, alpha1, alpha2, beta, restarts, draws_per_restart, burnin, delay, create_feature_tables=True)
                                   
-        html_link = params['amplicon_matrix_ref']
+        html_files = params['amplicon_matrix_ref']
 
-        report_client = KBaseReport(self.callback_url, token=self.token)
-        report_name = "TaxonomyAbundance_report_" + str(uuid.uuid4())
-        report_info = report_client.create_extended_report({
+        report_params = {
+            'message'= 'Proportion Tables',
+            'workspace_name': ws_name,
+            'html_links': html_files,
             'direct_html_link_index': 0,
-            'html_links': [html_link],
-            'report_object_name': report_name,
-            'workspace_name': params['workspace_name']
-        })
+            'html_window_height': 333,
+        }
+        
         output = {
             'report_ref': report_info['ref'],
             'report_name': report_info['name'],
