@@ -1,4 +1,4 @@
-# Large portions of code imported from SourceTracker2 code
+# Entirety of code imported from SourceTracker2 code
 # GitHub link: https://github.com/biota/sourcetracker2/blob/master/sourcetracker/_sourcetracker.py
 
 
@@ -12,7 +12,7 @@
 # The full license is in the file LICENSE, distributed with this software.
 # ----------------------------------------------------------------------------
 from __future__ import division
-from installed_clients.KBaseReportClient import KBaseReport
+
 import numpy as np
 import pandas as pd
 
@@ -20,7 +20,89 @@ from functools import partial
 from multiprocessing import Pool
 from skbio.stats import subsample_counts
 
-# Feature table is amplicon matrix
+
+def validate_gibbs_input(sources, sinks=None):
+    '''Validate `gibbs` inputs and coerce/round to type `np.int32`.
+
+    Summary
+    -------
+    Checks if data contains `nan` or `null` values, and returns data as
+    type `np.int32`. If both `sources` and `sinks` are passed, columns must
+    match exactly (including order).
+
+    Parameters
+    ----------
+    sources : pd.DataFrame
+        A dataframe containing count data. Must be castable to `np.int32`.
+    sinks : optional, pd.DataFrame or None
+        If not `None` a dataframe containing count data that is castable to
+        `np.int32`.
+
+    Returns
+    -------
+    pd.Dataframe(s)
+
+    Raises
+    ------
+    ValueError
+        If `nan` or `null` values found in inputs.
+    ValueError
+        If any values are smaller than 0.
+    ValueError
+        If any columns of an input dataframe are non-numeric.
+    ValueError
+        If `sources` and `sinks` passed and columns are not identical.
+    '''
+    if sinks is not None:
+        dfs = [sources, sinks]
+    else:
+        dfs = [sources]
+
+    for df in dfs:
+        # Because of this bug (https://github.com/numpy/numpy/issues/6114)
+        # we can't use e.g. np.isreal(df.dtypes).all(). Instead we use
+        # applymap. Based on:
+        # http://stackoverflow.com/questions/21771133/finding-non-numeric-rows-in-dataframe-in-pandas
+        if not df.applymap(np.isreal).values.all():
+            raise ValueError('A dataframe contains one or more values which '
+                             'are not numeric. Data must be exclusively '
+                             'positive integers.')
+        if np.isnan(df.values).any():
+            raise ValueError('A dataframe has `nan` or `null` values. Data '
+                             'must be exclusively positive integers.')
+        if (df.values < 0).any():
+            raise ValueError('A dataframe has a negative count. Data '
+                             'must be exclusively positive integers.')
+
+    if sinks is not None:
+        if not (sinks.columns == sources.columns).all():
+            raise ValueError('Dataframes do not contain identical (and '
+                             'identically ordered) columns. Columns must '
+                             'match exactly.')
+        return (sources.astype(np.int32, copy=False),
+                sinks.astype(np.int32, copy=False))
+    else:
+        return sources.astype(np.int32, copy=False)
+
+
+def validate_gibbs_parameters(alpha1, alpha2, beta, restarts,
+                              draws_per_restart, burnin, delay):
+    '''Return `True` if params numerically acceptable. See `gibbs` for docs.'''
+    real_vals = [alpha1, alpha2, beta]
+    int_vals = [restarts, draws_per_restart, burnin, delay]
+    # Check everything is real.
+    if all(np.isreal(val) for val in real_vals + int_vals):
+        # Check that integer values are some type of int.
+        int_check = all(isinstance(val, (int, np.int32, np.int64)) for val in
+                        int_vals)
+        # All integer values must be > 0.
+        pos_int = all(val > 0 for val in int_vals)
+        # All real values must be non-negative.
+        non_neg = all(val >= 0 for val in real_vals)
+        return int_check and pos_int and non_neg and real_vals
+    else:  # Failed to be all numeric values.
+        False
+
 
 def intersect_and_sort_samples(sample_metadata, feature_table):
     '''Return input tables retaining only shared samples, row order equivalent.
@@ -761,10 +843,6 @@ def cumulative_proportions(all_envcounts, sink_ids, source_ids):
     are met. It is the user's responsibility to check these if using this
     function independently.
     '''
-    
-    #### all I need right now
-    
-    
     num_sinks = len(sink_ids)
     num_sources = len(source_ids) + 1
 
@@ -777,7 +855,7 @@ def cumulative_proportions(all_envcounts, sink_ids, source_ids):
 
     cols = list(source_ids) + ['Unknown']
     return (pd.DataFrame(proportions, index=sink_ids, columns=cols),
-            pd.DataFrame(proportions_std, index=sink_ids, columns=cols))/
+            pd.DataFrame(proportions_std, index=sink_ids, columns=cols))
 
 
 def single_sink_feature_table(final_env_assignments, final_taxon_assignments,
@@ -934,41 +1012,3 @@ def collate_gibbs_results(all_envcounts, all_env_assignments,
             fts = None
 
     return props, props_stds, fts
-    
-    def _generate_html_report (self, mpm, mps, fas) :
-    # generate html_report
-        log('start generating html report')
-        html_report = list()
-        
-        
-    
-    def generate_report (self, mpm, mps, fas) :
-        """
-        _generate_report: generate summary report
-        """
-
-        log('creating report')
-
-        output_html_files = self._generate_html_report(mpm, mps, fas,
-                                                       params)
-
-        description_set = 'Proportion Tables created by Source Tracker'
-        description_object = 'Proportion Tables created by Source Tracker'
-        objects_created = []
-        objects_created.append({'ref': mpm, mps, fas)
-
-        report_params = {'message': '',
-                         'workspace_name': params.get('workspace_name'),
-                         'objects_created': objects_created,
-                         'file_links': output_files,
-                         'html_links': output_html_files,
-                         'direct_html_link_index': 0,
-                         'html_window_height': 333,
-                         'report_object_name': 'Source_Tracker_report_' + str(uuid.uuid4())}
-
-        kbase_report_client = KBaseReport(self.callback_url)
-        output = kbase_report_client.create_extended_report(report_params)
-
-        report_output = {'report_name': output['name'], 'report_ref': output['ref']}
-
-        return [report_output]
