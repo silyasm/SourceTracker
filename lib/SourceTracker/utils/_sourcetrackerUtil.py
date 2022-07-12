@@ -1,4 +1,4 @@
-# Entirety of code imported from SourceTracker2 code
+# Most of code imported from SourceTracker2 code
 # GitHub link: https://github.com/biota/sourcetracker2/blob/master/sourcetracker/_sourcetracker.py
 
 
@@ -15,7 +15,7 @@ from __future__ import division
 
 import numpy as np
 import pandas as pd
-
+import logging
 from functools import partial
 from multiprocessing import Pool
 from skbio.stats import subsample_counts
@@ -270,6 +270,7 @@ def generate_environment_assignments(n, num_sources):
 
 class ConditionalProbability(object):
     def __init__(self, alpha1, alpha2, beta, source_data):
+    logging.info('initializing conditional probability calculations: {}'.format(level))
         r"""Set properties used for calculating the conditional probability.
 
         Paramaters
@@ -440,6 +441,7 @@ class ConditionalProbability(object):
 
 
 def gibbs_sampler(sink, cp, restarts, draws_per_restart, burnin, delay):
+    logging.info('completing gibbs sampler: {}'.format(level))
     """Run Gibbs Sampler to estimate feature contributions from a sink sample.
 
     Parameters
@@ -612,6 +614,7 @@ def _gibbs_loo(cp_and_sink, restarts, draws_per_restart, burnin, delay):
 def gibbs(sources, sinks=None, alpha1=.001, alpha2=.1, beta=10, restarts=10,
           draws_per_restart=1, burnin=100, delay=1, jobs=1,
           create_feature_tables=True):
+    logging.info('Running gibbs function: {}'.format(level))
     '''Gibb's sampling API.
 
     Notes
