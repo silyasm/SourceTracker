@@ -123,7 +123,7 @@ class SourceTracker:
 
         mpm, mps, fas = _sourcetrackerUtil.gibbs(source_df, sink_df, alpha1, alpha2, beta, restarts, draws_per_restart, burnin, delay, create_feature_tables=True)
                                   
-        html_link = print(mpm, mps, fas)
+        html_link = params['amplicon_matrix_ref']
 
         report_client = KBaseReport(self.callback_url, token=self.token)
         report_name = "TaxonomyAbundance_report_" + str(uuid.uuid4())
